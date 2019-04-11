@@ -8,7 +8,14 @@ struct Node {
     Node<T>* prev;
 
     void killSelf() {
-        // TODO
+        //TODO
+    }
+
+    void killChain(){
+        if(next != nullptr){
+            next->killChain();
+        }
+        delete next;
     }
 };
 
