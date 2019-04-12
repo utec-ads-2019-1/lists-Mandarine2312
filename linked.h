@@ -18,7 +18,8 @@ class LinkedList : public List<T> {
         }
 
         void push_front(T value) {
-            // TODO
+            auto *newNode = new Node<T>;
+            newNode->data = value;
         }
 
         void push_back(T value) {
@@ -41,9 +42,8 @@ class LinkedList : public List<T> {
                 this->head = nullptr;
                 this->tail = nullptr;
             }else if(this->nodes > 1){
-                auto temp = this->head;
                 this->head = this->head->next;
-                delete temp;
+                delete this->head->prev;
                 this->head->prev = nullptr;
                 this->nodes--;
             }
@@ -55,9 +55,8 @@ class LinkedList : public List<T> {
                 this->head = nullptr;
                 this->tail = nullptr;
             }else if(this->nodes > 1){
-                auto temp = this->tail;
                 this->tail = this->tail->prev;
-                delete temp;
+                delete this->tail->next;
                 this->tail->next = nullptr;
                 this->nodes--;
             }
@@ -96,7 +95,6 @@ class LinkedList : public List<T> {
 
         void clear() {
             this->head->killChain();
-            delete this->head;
             this->head = nullptr;
             this->tail = nullptr;
             this->nodes = 0;

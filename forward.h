@@ -113,7 +113,6 @@ class ForwardList : public List<T> {
 
         void clear() {
             this->head->killChain();
-            delete this->head;
             this->head = nullptr;
             this->tail = nullptr;
             this->nodes = 0;

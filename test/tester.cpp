@@ -2,7 +2,7 @@
 
 void Tester::execute() {
     //Collection collections[] = { forward_list, linked_list, circular_list };
-    Collection collections[] = {circular_list};
+    Collection collections[] = {forward_list, linked_list, circular_list};
     size_t numberOfCollections = sizeof(collections) / sizeof(collections[0]);
 
     for (int i = 0; i < numberOfCollections; i++) {
@@ -39,7 +39,7 @@ void Tester::testList(Collection collection) {
     unsigned int size = mocker.generateRandomInt(10);
     T* elements = mocker.generateRandomArray<T>(size);
     List<T>* list = getCollection<T>(collection);
-    List<T>* list1 = getCollection<T>(collection);
+    //List<T>* list1 = getCollection<T>(collection);
 
     ASSERT(list->size() == 0, "The " + list->name() + " size is not working");
     ASSERT(list->empty() == true, "The " + list->name() + " empty is not working");
@@ -171,7 +171,7 @@ void Tester::testCircularLinked(CircularLinkedList<T>* list) {
     list->merge(*list1);
     ASSERT(list->size() == 5, "The " + list->name() + " merge is not working");
 
-    auto it = list->begin();
+    /*auto it = list->begin();
     ++it;
     ASSERT(*it == elements[1], "The " + list->name() + " iterator is not working");
     ++it;
@@ -186,5 +186,5 @@ void Tester::testCircularLinked(CircularLinkedList<T>* list) {
     ASSERT(*it == elements[1], "The " + list->name() + " iterator is not working");
     --it;
     --it;
-    ASSERT(*it == elements[4], "The " + list->name() + " iterator is not working");
+    ASSERT(*it == elements[4], "The " + list->name() + " iterator is not working");*/
 }
