@@ -10,18 +10,18 @@ class ForwardList : public List<T> {
         ForwardList() : List<T>() {}
 
         T front() {
-            return List<T>::head->data;
+            return this->head->data;
         }
 
         T back() {
-            return List<T>::tail->data;
+            return this->tail->data;
         }
 
         void push_front(T value) {
             auto *newNode = new Node<T>;
             newNode->data = value;
-            newNode->next = List<T>::head;
-            List<T>::head = newNode;
+            newNode->next = this->head;
+            this->head = newNode;
         }
 
 /*    Esta implementación no usa tail
@@ -30,17 +30,17 @@ class ForwardList : public List<T> {
             newNode->data = value;
             newNode->next = nullptr;
 
-            if(List<T>::head == nullptr){
-                List<T>::head = newNode;
+            if(this->head == nullptr){
+                this->head = newNode;
             }else{
-                auto temp = List<T>::head;
+                auto temp = this->head;
                 while(temp->next != nullptr){
                     temp = temp->next;
                 }
                 temp->next = newNode;
             }
 
-            List<T>::nodes++;
+            this->nodes++;
         }*/
 
         void push_back(T value) {
@@ -48,38 +48,51 @@ class ForwardList : public List<T> {
             newNode->data = value;
             newNode->next = nullptr;
 
-            if(List<T>::head == nullptr){
-                List<T>::head = newNode;
-                List<T>::tail = newNode;
+            if(this->head == nullptr){
+                this->head = newNode;
+                this->tail = newNode;
             }else{
-                List<T>::tail->next = newNode;
-                List<T>::tail = newNode;
+                this->tail->next = newNode;
+                this->tail = newNode;
             }
-            List<T>::nodes++;
+            this->nodes++;
         }
 
         void pop_front() {
-            auto temp = List<T>::head;
-            List<T>::head = List<T>::head->next;
-            delete temp;
-            List<T>::nodes--;
-        }
-
-        void pop_back() {
-            if(List<T>::nodes > 0){
-                auto temp = List<T>::head;
-                while(temp->next != List<T>::tail){
-                    temp = temp->next;
-                }
-                delete temp->next;
-                temp->next = nullptr;
-                List<T>::tail = temp;
-                List<T>::nodes--;
+            if(this->nodes ==1) {
+                delete this->head;
+                this->head = nullptr;
+                this->tail = nullptr;
+            }else if(this->nodes > 1){
+                auto temp = this->head;
+                this->head = this->head->next;
+                delete temp;
+                this->nodes--;
             }
         }
 
-        T operator[](int index) { //añadir un throw cuando está out of bounds
-            auto temp = List<T>::head;
+        void pop_back() {
+            if(this->nodes ==1) {
+                delete this->head;
+                this->head = nullptr;
+                this->tail = nullptr;
+            }else if(this->nodes > 1){
+                auto temp = this->head;
+                while(temp->next != this->tail){
+                    temp = temp->next;
+                }
+                this->tail = temp;
+                delete this->tail->next;
+                this->tail->next = nullptr;
+                this->nodes--;
+            }
+        }
+
+        T operator[](int index) {
+            if(index >= this->nodes){
+                throw std::out_of_range("Error: requested position is out of the list's range");
+            }
+            auto temp = this->head;
             for(int i = 0; i < index; i++){
                 temp = temp->next;
             }
@@ -87,7 +100,7 @@ class ForwardList : public List<T> {
         }
 
         bool empty() {
-            if(List<T>::nodes == 0){
+            if(this->nodes == 0){
                 return true;
             }else{
                 return false;
@@ -95,23 +108,24 @@ class ForwardList : public List<T> {
         }
 
         int size() {
-            return List<T>::nodes;
+            return this->nodes;
         }
 
         void clear() {
-            List<T>::head->killChain();
-            delete List<T>::head;
-            List<T>::head = nullptr;
-            List<T>::nodes = 0;
+            this->head->killChain();
+            delete this->head;
+            this->head = nullptr;
+            this->tail = nullptr;
+            this->nodes = 0;
         }
 
         void sort() {
-            for(int i = List<T>::nodes-2; i >= 0; i--){
-                auto temp = List<T>::head;
+            for(int i = this->nodes-2; i >= 0; i--){
+                auto temp = this->head;
                 for(int j = 0; j < i; j++){
                     temp = temp->next;
                 }
-                for(int k = i; k < List<T>::nodes-1; k++){
+                for(int k = i; k < this->nodes-1; k++){
                     compare(temp, temp->next);
                     temp = temp->next;
                 }
@@ -125,14 +139,14 @@ class ForwardList : public List<T> {
         }
     
         void reverse() {
-            List<T>::tail = List<T>::head;
-            if(List<T>::nodes == 2){
-                auto temp = List<T>::head->next;
-                List<T>::head->next = nullptr;
-                temp->next = List<T>::head;
-                List<T>::head = temp;
-            }else if(List<T>::nodes > 2){
-                auto ptrToPrev = List<T>::head;
+            this->tail = this->head;
+            if(this->nodes == 2){
+                auto temp = this->head->next;
+                this->head->next = nullptr;
+                temp->next = this->head;
+                this->head = temp;
+            }else if(this->nodes > 2){
+                auto ptrToPrev = this->head;
                 auto ptrToCurr = ptrToPrev->next;
                 auto ptrToNext = ptrToCurr->next;
                 ptrToPrev->next = nullptr;
@@ -143,7 +157,7 @@ class ForwardList : public List<T> {
                     ptrToNext = ptrToNext->next;
                 }while(ptrToCurr->next != nullptr);
                 ptrToCurr->next = ptrToPrev;
-                List<T>::head = ptrToCurr;
+                this->head = ptrToCurr;
             }
         }
 

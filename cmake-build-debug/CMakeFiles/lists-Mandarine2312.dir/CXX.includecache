@@ -38,12 +38,6 @@ iterators/bidirectional_iterator.h
 node.h
 /home/alejandro/Documents/Workspace/lists-Mandarine2312/node.h
 
-/home/alejandro/Documents/Workspace/lists-Mandarine2312/main.cpp
-iostream
--
-test/tester.h
-/home/alejandro/Documents/Workspace/lists-Mandarine2312/test/tester.h
-
 /home/alejandro/Documents/Workspace/lists-Mandarine2312/mock/mocker.h
 random
 -

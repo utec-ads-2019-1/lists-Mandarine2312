@@ -29,9 +29,10 @@ class List {
 
         void printList(){
             auto temp = List<T>::head;
-            while(temp->next != nullptr){
+            do{
                 cout << temp->data << " ";
-            }
+                temp = temp->next;
+            }while(temp != tail);
             cout << endl;
         }
 
