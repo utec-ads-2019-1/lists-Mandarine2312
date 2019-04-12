@@ -1,0 +1,3 @@
+/home/alejandro/Documents/Workspace/lists-Mandarine2312/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/alejandro/Documents/Workspace/lists-Mandarine2312/cmake-build-debug/CMakeFiles/lists-Mandarine2312.dir
+/home/alejandro/Documents/Workspace/lists-Mandarine2312/cmake-build-debug/CMakeFiles/edit_cache.dir

@@ -10,51 +10,154 @@ class ForwardList : public List<T> {
         ForwardList() : List<T>() {}
 
         T front() {
-            // TODO
+            return this->head->data;
         }
 
         T back() {
-            // TODO
+            return this->tail->data;
         }
 
         void push_front(T value) {
-            // TODO
+            auto *newNode = new Node<T>;
+            newNode->data = value;
+            newNode->next = this->head;
+            this->head = newNode;
         }
 
+/*    Esta implementación no usa tail
+            void push_back(T value) {
+            auto * newNode = new Node<T>;
+            newNode->data = value;
+            newNode->next = nullptr;
+
+            if(this->head == nullptr){
+                this->head = newNode;
+            }else{
+                auto temp = this->head;
+                while(temp->next != nullptr){
+                    temp = temp->next;
+                }
+                temp->next = newNode;
+            }
+
+            this->nodes++;
+        }*/
+
         void push_back(T value) {
-            // TODO
+            auto *newNode = new Node<T>;
+            newNode->data = value;
+            newNode->next = nullptr;
+
+            if(this->head == nullptr){
+                this->head = newNode;
+                this->tail = newNode;
+            }else{
+                this->tail->next = newNode;
+                this->tail = newNode;
+            }
+            this->nodes++;
         }
 
         void pop_front() {
-            // TODO
+            if(this->nodes ==1) {
+                delete this->head;
+                this->head = nullptr;
+                this->tail = nullptr;
+            }else if(this->nodes > 1){
+                auto temp = this->head;
+                this->head = this->head->next;
+                delete temp;
+                this->nodes--;
+            }
         }
 
         void pop_back() {
-            // TODO
+            if(this->nodes ==1) {
+                delete this->head;
+                this->head = nullptr;
+                this->tail = nullptr;
+            }else if(this->nodes > 1){
+                auto temp = this->head;
+                while(temp->next != this->tail){
+                    temp = temp->next;
+                }
+                this->tail = temp;
+                delete this->tail->next;
+                this->tail->next = nullptr;
+                this->nodes--;
+            }
         }
 
         T operator[](int index) {
-            // TODO
+            if(index >= this->nodes){
+                throw std::out_of_range("Error: requested position is out of the list's range");
+            }
+            auto temp = this->head;
+            for(int i = 0; i < index; i++){
+                temp = temp->next;
+            }
+            return temp->data;
         }
 
         bool empty() {
-            // TODO
+            if(this->nodes == 0){
+                return true;
+            }else{
+                return false;
+            }
         }
 
         int size() {
-            // TODO
+            return this->nodes;
         }
 
         void clear() {
-            // TODO
+            this->head->killChain();
+            this->head = nullptr;
+            this->tail = nullptr;
+            this->nodes = 0;
         }
 
         void sort() {
-            // TODO
+            for(int i = this->nodes-2; i >= 0; i--){
+                auto temp = this->head;
+                for(int j = 0; j < i; j++){
+                    temp = temp->next;
+                }
+                for(int k = i; k < this->nodes-1; k++){
+                    compare(temp, temp->next);
+                    temp = temp->next;
+                }
+            }
+        }
+
+        void compare(Node<T>* a, Node<T> * b){
+            if(a->data > b->data){
+                swap(a->data, b->data);
+            }
         }
     
         void reverse() {
-            // TODO
+            this->tail = this->head;
+            if(this->nodes == 2){
+                auto temp = this->head->next;
+                this->head->next = nullptr;
+                temp->next = this->head;
+                this->head = temp;
+            }else if(this->nodes > 2){
+                auto ptrToPrev = this->head;
+                auto ptrToCurr = ptrToPrev->next;
+                auto ptrToNext = ptrToCurr->next;
+                ptrToPrev->next = nullptr;
+                do{
+                    ptrToCurr->next = ptrToPrev;
+                    ptrToPrev = ptrToCurr;
+                    ptrToCurr = ptrToNext;
+                    ptrToNext = ptrToNext->next;
+                }while(ptrToCurr->next != nullptr);
+                ptrToCurr->next = ptrToPrev;
+                this->head = ptrToCurr;
+            }
         }
 
         string name() {
@@ -70,7 +173,9 @@ class ForwardList : public List<T> {
         }
 
         void merge(ForwardList<T> list) {
-            // TODO
+            for(int i = 0; i < list.size(); i++){
+                this->push_back(list[i]);
+            }
         }
 };
 

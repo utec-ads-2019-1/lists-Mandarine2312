@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/lists-Mandarine2312.dir/main.cpp.o CMakeFiles/lists-Mandarine2312.dir/test/tester.cpp.o CMakeFiles/lists-Mandarine2312.dir/mock/mocker.cpp.o  -o lists-Mandarine2312 

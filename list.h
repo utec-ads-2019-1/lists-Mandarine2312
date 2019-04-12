@@ -27,6 +27,15 @@ class List {
         virtual void reverse() = 0;
         virtual string name() = 0;
 
+        void printList(){
+            auto temp = List<T>::head;
+            do{
+                cout << temp->data << " ";
+                temp = temp->next;
+            }while(temp != tail);
+            cout << endl;
+        }
+
         ~List() {
             // TODO
         }

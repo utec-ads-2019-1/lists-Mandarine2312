@@ -7,8 +7,18 @@ struct Node {
     Node<T>* next;
     Node<T>* prev;
 
-    void killSelf() {
-        // TODO
+    void killChainCircular(Node<T> * tail) {
+        if(next != tail){
+            next->killChainCircular(tail);
+        }
+        delete this;
+    }
+
+    void killChain(){
+        if(next != nullptr){
+            next->killChain();
+        }
+        delete this;
     }
 };
 
