@@ -145,11 +145,16 @@ class LinkedList : public List<T> {
         }
 
         BidirectionalIterator<T> begin() {
-            // TODO
+            auto newIt = new BidirectionalIterator<T>(this->head);
+            return *newIt;
         }
 
 	    BidirectionalIterator<T> end() {
-            // TODO
+            auto tempEnd = new Node<T>;
+            tempEnd->prev = this->tail;
+
+            auto newIt = new BidirectionalIterator<T>(tempEnd);
+            return *newIt;
         }
 
         void merge(LinkedList<T> list) {

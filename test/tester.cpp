@@ -1,8 +1,8 @@
 #include "tester.h"
 
 void Tester::execute() {
-    //Collection collections[] = { forward_list, linked_list, circular_list };
-    Collection collections[] = {forward_list, linked_list, circular_list};
+    Collection collections[] = { forward_list, linked_list, circular_list };
+    //itCollection collections[] = {circular_list};
     size_t numberOfCollections = sizeof(collections) / sizeof(collections[0]);
 
     for (int i = 0; i < numberOfCollections; i++) {
@@ -119,13 +119,13 @@ void Tester::testForward(ForwardList<T>* list) {
     list->merge(*list1);
     ASSERT(list->size() == 5, "The " + list->name() + " merge is not working");
 
-    /*
+
     auto it = list->begin();
     ++it;
     ASSERT(*it == elements[1], "The " + list->name() + " iterator is not working");
     ++it;
     ++it;
-    ASSERT(it != list->end(), "The " + list->name() + " iterator is not working");*/
+    ASSERT(it != list->end(), "The " + list->name() + " iterator is not working");
 
      }
 
@@ -145,14 +145,14 @@ void Tester::testLinked(LinkedList<T>* list) {
     list->merge(*list1);
     ASSERT(list->size() == 5, "The " + list->name() + " merge is not working");
 
-    /*auto it = list->begin();
+    auto it = list->begin();
     ++it;
     ASSERT(*it == elements[1], "The " + list->name() + " iterator is not working");
     ++it;
     ++it;
     --it;
     ASSERT(*it == elements[2], "The " + list->name() + " iterator is not working");
-    ASSERT(it != list->end(), "The " + list->name() + " iterator is not working");*/
+    ASSERT(it != list->end(), "The " + list->name() + " iterator is not working");
 }
 
 template <typename T>
@@ -171,7 +171,7 @@ void Tester::testCircularLinked(CircularLinkedList<T>* list) {
     list->merge(*list1);
     ASSERT(list->size() == 5, "The " + list->name() + " merge is not working");
 
-    /*auto it = list->begin();
+    auto it = list->begin();
     ++it;
     ASSERT(*it == elements[1], "The " + list->name() + " iterator is not working");
     ++it;
@@ -186,5 +186,19 @@ void Tester::testCircularLinked(CircularLinkedList<T>* list) {
     ASSERT(*it == elements[1], "The " + list->name() + " iterator is not working");
     --it;
     --it;
-    ASSERT(*it == elements[4], "The " + list->name() + " iterator is not working");*/
+    ASSERT(*it == elements[4], "The " + list->name() + " iterator is not working");
+
+    //Prueba del iterar con "for" (bidirectional iterator)
+    /*auto begin = list->begin();
+    auto end = list->end();
+
+    cout << "Impresión con iteradores: " << endl;
+    while(begin != end){
+        cout << *begin << endl;
+        ++begin;
+    }
+
+    cout << "\nImpresión del print" << endl;
+
+    print(list);*/
 }

@@ -165,11 +165,13 @@ class ForwardList : public List<T> {
         }
 
         ForwardIterator<T> begin() {
-            // TODO
+            auto newIt = new ForwardIterator<T>(this->head);
+            return *newIt;
         }
 
 	    ForwardIterator<T> end() {
-            // TODO
+            auto newIt = new ForwardIterator<T>(this->tail->next);
+            return *newIt;
         }
 
         void merge(ForwardList<T> list) {

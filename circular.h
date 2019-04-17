@@ -144,11 +144,21 @@ class CircularLinkedList : public List<T> {
         }
 
         BidirectionalIterator<T> begin() {
-            // TODO
+            auto tempBegin = new Node<T>;
+            tempBegin->next = this->head->next;
+            tempBegin->data = this->head->data;
+
+            //auto newIt = new BidirectionalIterator<T>(this->head);
+            auto newIt = new BidirectionalIterator<T>(tempBegin);
+            return *newIt;
         }
 
 	    BidirectionalIterator<T> end() {
-            // TODO
+            /*auto tempEnd = new Node<T>;
+            tempEnd->prev = this->tail;*/
+
+            auto newIt = new BidirectionalIterator<T>(this->tail->next);
+            return *newIt;
         }
 
         void merge(CircularLinkedList<T> list) {
