@@ -20,9 +20,11 @@ class ForwardIterator : public Iterator<T> {
 
         ForwardIterator<T> operator++() {
             this->current = this->current->next;
+            // Falta return
         }
 
         T operator*() {
+            // Si la lista está vacía?
             return this->current->data;
         }
 };

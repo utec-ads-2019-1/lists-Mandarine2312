@@ -10,10 +10,12 @@ class ForwardList : public List<T> {
         ForwardList() : List<T>() {}
 
         T front() {
+            // Si la lista está vacía?
             return this->head->data;
         }
 
         T back() {
+            // Si la lista está vacía?
             return this->tail->data;
         }
 
@@ -100,6 +102,7 @@ class ForwardList : public List<T> {
         }
 
         bool empty() {
+            // Podría ser: return this->head == nullptr;
             if(this->nodes == 0){
                 return true;
             }else{

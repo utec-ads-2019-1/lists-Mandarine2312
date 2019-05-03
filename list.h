@@ -38,6 +38,7 @@ class List {
 
         ~List() {
             // TODO
+            // Faltó destructor
         }
 };
 
